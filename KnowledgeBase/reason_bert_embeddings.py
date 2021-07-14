@@ -1,3 +1,7 @@
+"""
+读取所有的knowledge 条目，并通过预训练的BERT得到对应的embedding
+"""
+
 import os
 import argparse
 import logging
@@ -22,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 def get_params():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", default='Data/', type=str)
+    parser.add_argument("--data_dir", default='/home/data/KnowIT/', type=str)
     parser.add_argument("--bert_model", default='bert-base-uncased', type=str)
     parser.add_argument("--device", default='cuda', type=str, help="cuda, cpu")
     parser.add_argument('--csvtrain', default='knowit_data_train.csv', help='Training set data file')

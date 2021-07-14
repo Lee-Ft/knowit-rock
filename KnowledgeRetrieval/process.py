@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 def get_params():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", default='Data/', type=str)
+    parser.add_argument("--data_dir", default='/home/data/KnowIT/', type=str)
     parser.add_argument("--bert_model", default='bert-base-uncased', type=str)
     parser.add_argument("--do_lower_case", default=True)
     parser.add_argument('--seed', type=int, default=181)
@@ -43,8 +43,8 @@ def get_params():
     parser.add_argument('--csvval', default='knowit_data_val.csv', help='Dataset val data file')
     parser.add_argument('--csvtest', default='knowit_data_test.csv', help='Dataset test data file')
     parser.add_argument("--num_pairs", default=10, type=int)
-    parser.add_argument("--batch_size", default=64, type=int)
-    parser.add_argument("--eval_batch_size", default=64, type=int)
+    parser.add_argument("--batch_size", default=48, type=int)
+    parser.add_argument("--eval_batch_size", default=48, type=int)
     parser.add_argument("--max_seq_length", default=128, type=int)
     parser.add_argument("--workers", default=8)
     return parser.parse_args()
@@ -125,7 +125,7 @@ def train(args, outdir):
             optimizer.zero_grad()
             global_step += 1
 
-            plotter.plot('loss', 'train', 'Loss', global_step, global_loss.avg)
+            # plotter.plot('loss', 'train', 'Loss', global_step, global_loss.avg)
 
     # Save a trained model and the associated configuration
     model_to_save = model.module if hasattr(model, 'module') else model  # Only save the model it-self
@@ -199,7 +199,7 @@ if __name__ == "__main__":
 
     if not os.path.isfile(os.path.join(outdir, 'pytorch_model.bin')):
         global plotter
-        plotter = utils.VisdomLinePlotter(env_name=train_name)
+        # plotter = utils.VisdomLinePlotter(env_name=train_name)
         train(args, outdir)
 
     if not os.path.exists(os.path.join(args.data_dir, 'retieval_scores_test.pckl')):
